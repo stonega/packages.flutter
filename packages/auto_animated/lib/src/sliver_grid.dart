@@ -19,6 +19,7 @@ class LiveSliverGrid extends StatefulWidget {
     this.delay = Duration.zero,
     this.showItemInterval = _kDuration,
     this.showItemDuration = _kDuration,
+    this.onScroll,
     Key key,
   })  : assert(itemBuilder != null),
         assert(itemCount != null && itemCount >= 0),
@@ -30,6 +31,7 @@ class LiveSliverGrid extends StatefulWidget {
     @required this.itemCount,
     @required this.controller,
     @required LiveOptions options,
+    this.onScroll,
     Key key,
   })  : delay = options.delay,
         showItemInterval = options.showItemInterval,
@@ -42,6 +44,7 @@ class LiveSliverGrid extends StatefulWidget {
 
   /// Start animation after (default zero)
   final Duration delay;
+  final ValueChanged<double> onScroll;
 
   /// Show each item through
   final Duration showItemInterval;
@@ -106,6 +109,7 @@ class _LiveSliverGridState extends State<LiveSliverGrid>
 
   @override
   Widget build(BuildContext context) => AnimateIfVisibleWrapper(
+        onScroll: widget.onScroll,
         controller: widget.controller,
         delay: widget.delay,
         showItemInterval: widget.showItemInterval,
