@@ -112,6 +112,7 @@ class AnimateIfVisibleWrapper extends StatefulWidget {
     this.delay = Duration.zero,
     this.showItemInterval = const Duration(milliseconds: 150),
     this.controller,
+    this.onScroll,
     Key key,
   })  : assert(delay != null),
         assert(showItemInterval != null),
@@ -120,6 +121,7 @@ class AnimateIfVisibleWrapper extends StatefulWidget {
   final ScrollController controller;
   final Widget child;
   final Duration delay, showItemInterval;
+  final ValueChanged<double> onScroll;
 
   @override
   _AnimateIfVisibleWrapperState createState() =>
@@ -175,6 +177,7 @@ class _AnimateIfVisibleWrapperState extends State<AnimateIfVisibleWrapper> {
   }
 
   bool _handleScrollNotifications(ScrollNotification scrollInfo) {
+    widget.onScroll(scrollInfo.metrics.pixels);
     _setDirection(
       scrollInfo.metrics.pixels,
       scrollInfo.metrics.minScrollExtent,
