@@ -27,6 +27,7 @@ class LiveGrid extends StatefulWidget {
     this.addAutomaticKeepAlives = true,
     this.addRepaintBoundaries = true,
     this.addSemanticIndexes = true,
+    this.onScroll,
     Key key,
   })  : assert(itemBuilder != null),
         assert(itemCount != null && itemCount >= 0),
@@ -47,6 +48,7 @@ class LiveGrid extends StatefulWidget {
     this.addAutomaticKeepAlives = true,
     this.addRepaintBoundaries = true,
     this.addSemanticIndexes = true,
+    this.onScroll,
     Key key,
   })  : delay = options.delay,
         showItemInterval = options.showItemInterval,
@@ -59,6 +61,7 @@ class LiveGrid extends StatefulWidget {
 
   /// Start animation after (default zero)
   final Duration delay;
+  final ValueChanged<double> onScroll;
 
   /// Show each item through
   final Duration showItemInterval;
@@ -231,6 +234,7 @@ class _LiveGridViewState extends State<LiveGrid>
   Widget build(BuildContext context) => AnimateIfVisibleWrapper(
         delay: widget.delay,
         showItemInterval: widget.showItemInterval,
+        onScroll: widget.onScroll,
         child: GridView.builder(
           itemBuilder: _itemBuilder,
           gridDelegate: widget.gridDelegate,
